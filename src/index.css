@@ -24,3 +24,14 @@ body {
 .login-form {
   margin: 8rem auto;
 }
+
+.dashboard {
+  min-height: 100vh;
+}
+
+.dashboard-title {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1rem;
+  color: #fff;
+}

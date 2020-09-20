@@ -28,7 +28,7 @@ export const Login = () => {
   return (
     <>
       <Header className="login-title">库存进出管理系统</Header>
-      <Content className="login-form">
+      <Content>
         <Form
           {...layout}
           name="basic"
@@ -37,6 +37,7 @@ export const Login = () => {
           }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
+          className="login-form"
         >
           <Form.Item
             label="用户名"

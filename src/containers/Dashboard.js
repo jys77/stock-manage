@@ -1,5 +1,6 @@
-import React from "react";
-import { Route, NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import Cookie from "js-cookie";
+import { Route, NavLink, Redirect } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { StockIn } from "./StockIn";
 import { Sell } from "./Sell";
@@ -8,16 +9,17 @@ const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
 export const Dashboard = () => {
-  return (
+  return !Cookie.getJSON("user") ? (
+    <Redirect to="/" />
+  ) : (
     <Layout className="dashboard">
       <Sider
         style={{
-          overflow: "auto",
           height: "100vh",
           position: "fixed",
           left: 0,
         }}
-        breakpoint="lg"
+        breakpoint="md"
         collapsedWidth="0"
       >
         <div className="dashboard-title">库存进出管理系统</div>
@@ -47,6 +49,200 @@ export const Dashboard = () => {
         <Route path="/dashboard/in" component={StockIn} />
         <Route path="/dashboard/out" component={Sell} />
         <Route path="/dashboard/manage" component={Manage} />
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
+        <br />
+        aaaaa
       </Content>
     </Layout>
   );

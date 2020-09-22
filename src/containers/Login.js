@@ -60,7 +60,6 @@ export const Login = (props) => {
       <Content>
         {showAlert && (
           <Alert
-            className="alert"
             message={userInfo ? "登录成功！" : error ? error.msg : "出错了"}
             type={userInfo ? "success" : "error"}
             showIcon

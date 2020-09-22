@@ -2,6 +2,11 @@ import React, { useEffect } from "react";
 import Cookie from "js-cookie";
 import { Route, NavLink, Redirect } from "react-router-dom";
 import { Layout, Menu } from "antd";
+import {
+  AppstoreAddOutlined,
+  PayCircleOutlined,
+  DatabaseOutlined,
+} from "@ant-design/icons";
 import { StockIn } from "./StockIn";
 import { Sell } from "./Sell";
 import { Manage } from "./Manage";
@@ -18,6 +23,7 @@ export const Dashboard = () => {
           height: "100vh",
           position: "fixed",
           left: 0,
+          zIndex: "1000",
         }}
         breakpoint="md"
         collapsedWidth="0"
@@ -28,13 +34,13 @@ export const Dashboard = () => {
             <NavLink to="/dashboard">首页</NavLink>
           </Menu.Item>
           <SubMenu key="sub1" title="日常业务">
-            <Menu.Item key="2">
+            <Menu.Item key="2" icon={<AppstoreAddOutlined />}>
               <NavLink to="/dashboard/in">入库</NavLink>
             </Menu.Item>
-            <Menu.Item key="3">
+            <Menu.Item key="3" icon={<PayCircleOutlined />}>
               <NavLink to="/dashboard/out">售出</NavLink>
             </Menu.Item>
-            <Menu.Item key="4">
+            <Menu.Item key="4" icon={<DatabaseOutlined />}>
               <NavLink to="/dashboard/manage">物品管理</NavLink>
             </Menu.Item>
           </SubMenu>
@@ -45,204 +51,10 @@ export const Dashboard = () => {
           <Menu.Item key="7">数据导入</Menu.Item>
         </Menu>
       </Sider>
-      <Content style={{ marginLeft: 200 }}>
+      <Content className="content">
         <Route path="/dashboard/in" component={StockIn} />
         <Route path="/dashboard/out" component={Sell} />
         <Route path="/dashboard/manage" component={Manage} />
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
-        <br />
-        aaaaa
       </Content>
     </Layout>
   );

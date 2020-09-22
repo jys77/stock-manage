@@ -35,3 +35,17 @@ body {
   font-size: 1rem;
   color: #fff;
 }
+
+@media (min-width: 768px) {
+  .content {
+    margin-left: 200px;
+  }
+}
+
+.content-manage {
+  margin: 0.5rem;
+  background-color: #fff;
+  min-height: 100vh;
+  padding: 0.5rem;
+  padding-left: 1rem;
+}

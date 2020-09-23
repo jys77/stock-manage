@@ -21,7 +21,7 @@ const tailLayout = {
 
 export const Login = (props) => {
   const dispatch = useDispatch();
-  const { loading, userInfo, error } = useSelector((state) => state.login);
+  const { loading, user, error } = useSelector((state) => state.login);
   const [showAlert, setShowAlert] = useState(false);
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -38,7 +38,7 @@ export const Login = (props) => {
   };
 
   useEffect(() => {
-    if (userInfo) {
+    if (user) {
       setShowAlert(true);
       setTimeout(() => {
         props.history.push("/dashboard");
@@ -52,7 +52,7 @@ export const Login = (props) => {
     return () => {
       setShowAlert(false);
     };
-  }, [userInfo, error]);
+  }, [user, error]);
 
   return (
     <>
@@ -60,8 +60,8 @@ export const Login = (props) => {
       <Content>
         {showAlert && (
           <Alert
-            message={userInfo ? "登录成功！" : error ? error.msg : "出错了"}
-            type={userInfo ? "success" : "error"}
+            message={user ? "登录成功！" : error ? error.msg : "出错了"}
+            type={user ? "success" : "error"}
             showIcon
             closable
           />

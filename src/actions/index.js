@@ -1,2 +1,2 @@
 export { login, logout } from "./userActions";
-export { addItem } from "./inventoryActions";
+export { addItem, getItems, getFilters } from "./inventoryActions";

@@ -1,12 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Modal, Form, Input, Select, Alert } from "antd";
+import {
+  Button,
+  Modal,
+  Form,
+  Input,
+  Select,
+  Alert,
+  Table,
+  Empty,
+  Spin,
+  Space,
+} from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { addItem } from "../actions";
-
+import { addItem, getItems, getFilters } from "../actions";
+import { units, categories } from "../constants";
 export const Manage = () => {
   const dispatch = useDispatch();
-  const { loading, error, data } = useSelector((state) => state.newAdd);
+  const { loading: newAddLoading, error: newAddError, data } = useSelector(
+    (state) => state.newAdd
+  );
+  const { loading: itemsLoading, error: itemsError, items } = useSelector(
+    (state) => state.items
+  );
+  const { cats, brands, names } = useSelector((state) => state.filter);
   const [form] = Form.useForm();
   const [showModal, setShowModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -22,6 +39,7 @@ export const Manage = () => {
         setShowModal((prev) => !prev);
         form.resetFields();
         setShowAlert(true);
+        dispatch(getItems());
         setTimeout(() => {
           setShowAlert(false);
         }, 5000);
@@ -39,19 +57,13 @@ export const Manage = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if ((data && data.msg) || error) {
-  //     setShowAlert(true);
-  //     setName(null);
-  //     setCat(null);
-  //     setBrand(null);
-  //     setModel(null);
-  //     setUnit(null);
-  //     setTimeout(() => {
-  //       setShowAlert(false);
-  //     }, 5000);
-  //   }
-  // }, [data, error]);
+  useEffect(() => {
+    dispatch(getItems());
+    dispatch(getFilters("categories"));
+    dispatch(getFilters("brands"));
+    dispatch(getFilters("names"));
+    // eslint-disable-next-line
+  }, []);
 
   const cancelHandler = () => {
     setShowModal(false);
@@ -71,9 +83,90 @@ export const Manage = () => {
     if (unit) setUnit(unit);
   };
 
+  const columns = [
+    {
+      title: "分类",
+      dataIndex: "category",
+      key: "category",
+      filters: cats ? cats : [],
+      onFilter: (value, record) => record.category.indexOf(value) === 0,
+      sorter: (a, b) => {
+        let stringA = a.category.toUpperCase();
+        let stringB = b.category.toUpperCase();
+        if (stringA < stringB) {
+          return -1;
+        }
+        if (stringA > stringB) {
+          return 1;
+        }
+        return 0;
+      },
+      sortDirections: ["descend", "ascend"],
+    },
+    {
+      title: "名称",
+      dataIndex: "name",
+      key: "name",
+      filters: names ? names : [],
+      onFilter: (value, record) => record.name.indexOf(value) === 0,
+      sorter: (a, b) => {
+        let stringA = a.name.toUpperCase();
+        let stringB = b.name.toUpperCase();
+        if (stringA < stringB) {
+          return -1;
+        }
+        if (stringA > stringB) {
+          return 1;
+        }
+        return 0;
+      },
+      sortDirections: ["descend", "ascend"],
+    },
+    {
+      title: "品牌",
+      dataIndex: "brand",
+      key: "brand",
+      filters: brands ? brands : [],
+      onFilter: (value, record) => record.brand.indexOf(value) === 0,
+      sorter: (a, b) => {
+        let stringA = a.brand.toUpperCase();
+        let stringB = b.brand.toUpperCase();
+        if (stringA < stringB) {
+          return -1;
+        }
+        if (stringA > stringB) {
+          return 1;
+        }
+        return 0;
+      },
+      sortDirections: ["descend", "ascend"],
+    },
+    {
+      title: "型号",
+      dataIndex: "model",
+      key: "model",
+    },
+    {
+      title: "库存",
+      dataIndex: "stock",
+      key: "stock",
+    },
+    {
+      title: "操作",
+      key: "action",
+      render: (text, record) => (
+        <Space size="small">
+          <a>编辑</a>
+          <a>删除</a>
+        </Space>
+      ),
+    },
+  ];
+
   return (
     <div className="content-manage">
       <Button
+        className="add-btn"
         type="primary"
         shape="round"
         icon={<PlusOutlined />}
@@ -84,7 +177,7 @@ export const Manage = () => {
       </Button>
       {showAlert ? (
         <Alert
-          message={data ? data.msg : error ? error.msg : null}
+          message={data ? data.msg : newAddError ? newAddError.msg : null}
           type={data ? "success" : "error"}
           style={{
             marginTop: "1rem",
@@ -99,7 +192,7 @@ export const Manage = () => {
         okText="提交"
         cancelText="取消"
         onOk={submitHandler}
-        confirmLoading={loading}
+        confirmLoading={newAddLoading}
         onCancel={cancelHandler}
       >
         <Form
@@ -127,11 +220,9 @@ export const Manage = () => {
             rules={[{ required: true, message: "请选择商品类别！" }]}
           >
             <Select>
-              <Select.Option value="A">A</Select.Option>
-              <Select.Option value="B">B</Select.Option>
-              <Select.Option value="C">C</Select.Option>
-              <Select.Option value="D">D</Select.Option>
-              <Select.Option value="E">E</Select.Option>
+              {categories.map((category) => (
+                <Select.Option value={category}>{category}</Select.Option>
+              ))}
             </Select>
           </Form.Item>
           <Form.Item label="品牌" name="brand">
@@ -146,16 +237,32 @@ export const Manage = () => {
             rules={[{ required: true, message: "请选择计量单位！" }]}
           >
             <Select>
-              <Select.Option value="ge">个</Select.Option>
-              <Select.Option value="zhi">只</Select.Option>
-              <Select.Option value="mi">米</Select.Option>
-              <Select.Option value="juan">卷</Select.Option>
-              <Select.Option value="xiang">箱</Select.Option>
-              <Select.Option value="pingfang">平方</Select.Option>
+              {units.map((unit) => (
+                <Select.Option value={unit}>{unit}</Select.Option>
+              ))}
             </Select>
           </Form.Item>
         </Form>
       </Modal>
+      {itemsLoading ? (
+        <Spin size="large" className="center" />
+      ) : items ? (
+        <Table
+          locale={{
+            cancelSort: "点击取消排序",
+            triggerAsc: "点击升序",
+            triggerDesc: "点击降序",
+            filterReset: "重置",
+            filterConfirm: "确认",
+          }}
+          columns={columns}
+          dataSource={items}
+        />
+      ) : itemsError ? (
+        <div></div>
+      ) : (
+        <Empty description="暂无数据" className="center" />
+      )}
     </div>
   );
 };

@@ -3,6 +3,12 @@ import {
   ADD_ITEM_REQUEST,
   ADD_ITEM_SUCCESS,
   ADD_ITEM_FAIL,
+  GET_ITEMS_REQUEST,
+  GET_ITEMS_SUCCESS,
+  GET_ITEMS_FAIL,
+  GET_ITEMS_CATS,
+  GET_ITEMS_BRANDS,
+  GET_ITEMS_NAMES,
 } from "../constants";
 
 export const addItem = (newItem) => {
@@ -34,5 +40,60 @@ export const addItem = (newItem) => {
           });
         }
       });
+  };
+};
+
+export const getItems = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: GET_ITEMS_REQUEST,
+    });
+    const {
+      login: { user },
+    } = getState();
+    axios
+      .get("/api/inventories/", {
+        headers: {
+          Authorization: "Bearer " + user.token,
+        },
+      })
+      .then((res) => {
+        dispatch({
+          type: GET_ITEMS_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { data } = err.response;
+          dispatch({
+            type: GET_ITEMS_FAIL,
+            payload: data,
+          });
+        }
+      });
+  };
+};
+
+export const getFilters = (filterName) => {
+  return (dispatch) => {
+    axios.get("/api/inventories/" + filterName).then((res) => {
+      if (filterName === "categories") {
+        dispatch({
+          type: GET_ITEMS_CATS,
+          payload: res.data,
+        });
+      } else if (filterName === "brands") {
+        dispatch({
+          type: GET_ITEMS_BRANDS,
+          payload: res.data,
+        });
+      } else if (filterName === "names") {
+        dispatch({
+          type: GET_ITEMS_NAMES,
+          payload: res.data,
+        });
+      } else return;
+    });
   };
 };

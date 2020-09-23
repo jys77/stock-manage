@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Cookie from "js-cookie";
 import { Route, NavLink, Redirect } from "react-router-dom";
 import { Layout, Menu } from "antd";

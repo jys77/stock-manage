@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   ADD_ITEM_REQUEST,
   ADD_ITEM_SUCCESS,
@@ -9,7 +9,7 @@ import {
   GET_ITEMS_CATS,
   GET_ITEMS_BRANDS,
   GET_ITEMS_NAMES,
-} from "../constants";
+} from '../constants';
 
 export const addItem = (newItem) => {
   return (dispatch, getState) => {
@@ -20,9 +20,9 @@ export const addItem = (newItem) => {
       login: { user },
     } = getState();
     axios
-      .post("/api/inventories/add", newItem, {
+      .post('/api/inventories/add', newItem, {
         headers: {
-          Authorization: "Bearer " + user.token,
+          Authorization: 'Bearer ' + user.token,
         },
       })
       .then((res) => {
@@ -52,9 +52,9 @@ export const getItems = () => {
       login: { user },
     } = getState();
     axios
-      .get("/api/inventories/", {
+      .get('/api/inventories/', {
         headers: {
-          Authorization: "Bearer " + user.token,
+          Authorization: 'Bearer ' + user.token,
         },
       })
       .then((res) => {
@@ -77,18 +77,18 @@ export const getItems = () => {
 
 export const getFilters = (filterName) => {
   return (dispatch) => {
-    axios.get("/api/inventories/" + filterName).then((res) => {
-      if (filterName === "categories") {
+    axios.get('/api/inventories/' + filterName).then((res) => {
+      if (filterName === 'categories') {
         dispatch({
           type: GET_ITEMS_CATS,
           payload: res.data,
         });
-      } else if (filterName === "brands") {
+      } else if (filterName === 'brands') {
         dispatch({
           type: GET_ITEMS_BRANDS,
           payload: res.data,
         });
-      } else if (filterName === "names") {
+      } else if (filterName === 'names') {
         dispatch({
           type: GET_ITEMS_NAMES,
           payload: res.data,

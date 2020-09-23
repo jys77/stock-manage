@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { login } from "../actions";
-import { Layout, Form, Input, Button, Checkbox, Alert } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../actions';
+import { Layout, Form, Input, Button, Checkbox, Alert } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 const { Header, Content } = Layout;
 const layout = {
   labelCol: {
@@ -24,13 +24,13 @@ export const Login = (props) => {
   const { loading, user, error } = useSelector((state) => state.login);
   const [showAlert, setShowAlert] = useState(false);
   const onFinish = (values) => {
-    console.log("Success:", values);
+    console.log('Success:', values);
     const { username, password, remember } = values;
     dispatch(login(username, password));
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log('Failed:', errorInfo);
     setShowAlert(true);
     setTimeout(() => {
       setShowAlert(false);
@@ -41,7 +41,7 @@ export const Login = (props) => {
     if (user) {
       setShowAlert(true);
       setTimeout(() => {
-        props.history.push("/dashboard");
+        props.history.push('/dashboard');
       }, 500);
     } else if (error) {
       setShowAlert(true);
@@ -60,8 +60,8 @@ export const Login = (props) => {
       <Content>
         {showAlert && (
           <Alert
-            message={user ? "登录成功！" : error ? error.msg : "出错了"}
-            type={user ? "success" : "error"}
+            message={user ? '登录成功！' : error ? error.msg : '出错了'}
+            type={user ? 'success' : 'error'}
             showIcon
             closable
           />
@@ -82,7 +82,7 @@ export const Login = (props) => {
             rules={[
               {
                 required: true,
-                message: "请输入用户名!",
+                message: '请输入用户名!',
               },
             ]}
           >
@@ -95,7 +95,7 @@ export const Login = (props) => {
             rules={[
               {
                 required: true,
-                message: "请输入密码!",
+                message: '请输入密码!',
               },
             ]}
           >
@@ -110,11 +110,7 @@ export const Login = (props) => {
             <Button type="primary" htmlType="submit">
               登录
             </Button>
-            {loading && (
-              <LoadingOutlined
-                style={{ color: "#1890FF", marginLeft: "1rem" }}
-              />
-            )}
+            {loading && <LoadingOutlined style={{ color: '#1890FF', marginLeft: '1rem' }} />}
           </Form.Item>
         </Form>
       </Content>

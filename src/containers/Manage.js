@@ -1,28 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  Button,
-  Modal,
-  Form,
-  Input,
-  Select,
-  Alert,
-  Table,
-  Empty,
-  Spin,
-  Space,
-} from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import { addItem, getItems, getFilters } from "../actions";
-import { units, categories } from "../constants";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Button, Modal, Form, Input, Select, Alert, Table, Empty, Spin, Space } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { addItem, getItems, getFilters } from '../actions';
+import { units, categories } from '../constants';
 export const Manage = () => {
   const dispatch = useDispatch();
-  const { loading: newAddLoading, error: newAddError, data } = useSelector(
-    (state) => state.newAdd
-  );
-  const { loading: itemsLoading, error: itemsError, items } = useSelector(
-    (state) => state.items
-  );
+  const { loading: newAddLoading, error: newAddError, data } = useSelector((state) => state.newAdd);
+  const { loading: itemsLoading, error: itemsError, items } = useSelector((state) => state.items);
   const { cats, brands, names } = useSelector((state) => state.filter);
   const [form] = Form.useForm();
   const [showModal, setShowModal] = useState(false);
@@ -59,9 +44,9 @@ export const Manage = () => {
 
   useEffect(() => {
     dispatch(getItems());
-    dispatch(getFilters("categories"));
-    dispatch(getFilters("brands"));
-    dispatch(getFilters("names"));
+    dispatch(getFilters('categories'));
+    dispatch(getFilters('brands'));
+    dispatch(getFilters('names'));
     // eslint-disable-next-line
   }, []);
 
@@ -85,9 +70,9 @@ export const Manage = () => {
 
   const columns = [
     {
-      title: "分类",
-      dataIndex: "category",
-      key: "category",
+      title: '分类',
+      dataIndex: 'category',
+      key: 'category',
       filters: cats ? cats : [],
       onFilter: (value, record) => record.category.indexOf(value) === 0,
       sorter: (a, b) => {
@@ -101,12 +86,12 @@ export const Manage = () => {
         }
         return 0;
       },
-      sortDirections: ["descend", "ascend"],
+      sortDirections: ['descend', 'ascend'],
     },
     {
-      title: "名称",
-      dataIndex: "name",
-      key: "name",
+      title: '名称',
+      dataIndex: 'name',
+      key: 'name',
       filters: names ? names : [],
       onFilter: (value, record) => record.name.indexOf(value) === 0,
       sorter: (a, b) => {
@@ -120,12 +105,12 @@ export const Manage = () => {
         }
         return 0;
       },
-      sortDirections: ["descend", "ascend"],
+      sortDirections: ['descend', 'ascend'],
     },
     {
-      title: "品牌",
-      dataIndex: "brand",
-      key: "brand",
+      title: '品牌',
+      dataIndex: 'brand',
+      key: 'brand',
       filters: brands ? brands : [],
       onFilter: (value, record) => record.brand.indexOf(value) === 0,
       sorter: (a, b) => {
@@ -139,25 +124,25 @@ export const Manage = () => {
         }
         return 0;
       },
-      sortDirections: ["descend", "ascend"],
+      sortDirections: ['descend', 'ascend'],
     },
     {
-      title: "型号",
-      dataIndex: "model",
-      key: "model",
+      title: '型号',
+      dataIndex: 'model',
+      key: 'model',
     },
     {
-      title: "库存",
-      dataIndex: "stock",
-      key: "stock",
+      title: '库存',
+      dataIndex: 'stock',
+      key: 'stock',
     },
     {
-      title: "操作",
-      key: "action",
+      title: '操作',
+      key: 'action',
       render: (text, record) => (
         <Space size="small">
-          <a>编辑</a>
-          <a>删除</a>
+          <a href="/">编辑</a>
+          <a href="/">删除</a>
         </Space>
       ),
     },
@@ -178,9 +163,9 @@ export const Manage = () => {
       {showAlert ? (
         <Alert
           message={data ? data.msg : newAddError ? newAddError.msg : null}
-          type={data ? "success" : "error"}
+          type={data ? 'success' : 'error'}
           style={{
-            marginTop: "1rem",
+            marginTop: '1rem',
           }}
           showIcon
           closable
@@ -210,18 +195,20 @@ export const Manage = () => {
           <Form.Item
             label="名称"
             name="name"
-            rules={[{ required: true, message: "请填写商品名称！" }]}
+            rules={[{ required: true, message: '请填写商品名称！' }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             label="类别"
             name="cat"
-            rules={[{ required: true, message: "请选择商品类别！" }]}
+            rules={[{ required: true, message: '请选择商品类别！' }]}
           >
             <Select>
-              {categories.map((category) => (
-                <Select.Option value={category}>{category}</Select.Option>
+              {categories.map((category, index) => (
+                <Select.Option key={'cat' + index} value={category}>
+                  {category}
+                </Select.Option>
               ))}
             </Select>
           </Form.Item>
@@ -234,11 +221,13 @@ export const Manage = () => {
           <Form.Item
             label="单位"
             name="unit"
-            rules={[{ required: true, message: "请选择计量单位！" }]}
+            rules={[{ required: true, message: '请选择计量单位！' }]}
           >
             <Select>
-              {units.map((unit) => (
-                <Select.Option value={unit}>{unit}</Select.Option>
+              {units.map((unit, index) => (
+                <Select.Option key={'unit' + index} value={unit}>
+                  {unit}
+                </Select.Option>
               ))}
             </Select>
           </Form.Item>
@@ -248,12 +237,13 @@ export const Manage = () => {
         <Spin size="large" className="center" />
       ) : items ? (
         <Table
+          rowKey="row"
           locale={{
-            cancelSort: "点击取消排序",
-            triggerAsc: "点击升序",
-            triggerDesc: "点击降序",
-            filterReset: "重置",
-            filterConfirm: "确认",
+            cancelSort: '点击取消排序',
+            triggerAsc: '点击升序',
+            triggerDesc: '点击降序',
+            filterReset: '重置',
+            filterConfirm: '确认',
           }}
           columns={columns}
           dataSource={items}

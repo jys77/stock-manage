@@ -1,6 +1,6 @@
-import axios from "axios";
-import Cookie from "js-cookie";
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from "../constants";
+import axios from 'axios';
+import Cookie from 'js-cookie';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from '../constants';
 
 export const login = (username, password) => {
   return (dispatch) => {
@@ -12,7 +12,7 @@ export const login = (username, password) => {
       },
     });
     axios
-      .post("/api/users/login", {
+      .post('/api/users/login', {
         username,
         password,
       })
@@ -22,7 +22,7 @@ export const login = (username, password) => {
           type: LOGIN_SUCCESS,
           payload: data,
         });
-        Cookie.set("user", JSON.stringify(data));
+        Cookie.set('user', JSON.stringify(data));
       })
       .catch((err) => {
         console.log(err);
@@ -39,7 +39,7 @@ export const login = (username, password) => {
 
 export const logout = () => {
   return (dispatch) => {
-    Cookie.remove("user");
+    Cookie.remove('user');
     dispatch({ type: LOGOUT });
   };
 };

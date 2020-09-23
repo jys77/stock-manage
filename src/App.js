@@ -1,7 +1,7 @@
-import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import { Login } from "./containers/Login";
-import { Dashboard } from "./containers/Dashboard";
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { Login } from './containers/Login';
+import { Dashboard } from './containers/Dashboard';
 function App() {
   return (
     <BrowserRouter>

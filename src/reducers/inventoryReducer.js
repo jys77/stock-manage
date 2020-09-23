@@ -8,7 +8,7 @@ import {
   GET_ITEMS_CATS,
   GET_ITEMS_BRANDS,
   GET_ITEMS_NAMES,
-} from "../constants";
+} from '../constants';
 
 export const addItemReducer = (state = {}, action) => {
   switch (action.type) {

@@ -1,2 +1,7 @@
 export { loginReducer } from './userReducer';
-export { addItemReducer, getItemsReducer, getFilterReducer } from './inventoryReducer';
+export {
+  addItemReducer,
+  getItemsReducer,
+  getFilterReducer,
+  updateItemReducer,
+} from './inventoryReducer';

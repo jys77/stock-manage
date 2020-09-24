@@ -1,22 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Modal, Form, Input, Select, Alert, Table, Empty, Spin, Space } from 'antd';
+import {
+  Button,
+  Modal,
+  Form,
+  Input,
+  Select,
+  Alert,
+  Table,
+  Empty,
+  Spin,
+  Space,
+  Popconfirm,
+} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { addItem, getItems, getFilters } from '../actions';
+import { addItem, getItems, getFilters, updateItem } from '../actions';
 import { units, categories } from '../constants';
+import { EditModal } from '../components/editModal';
 export const Manage = () => {
   const dispatch = useDispatch();
   const { loading: newAddLoading, error: newAddError, data } = useSelector((state) => state.newAdd);
   const { loading: itemsLoading, error: itemsError, items } = useSelector((state) => state.items);
+  const { error: updatedError, data: updatedData } = useSelector((state) => state.updatedItem);
   const { cats, brands, names } = useSelector((state) => state.filter);
   const [form] = Form.useForm();
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [name, setName] = useState(null);
   const [brand, setBrand] = useState(null);
   const [model, setModel] = useState(null);
   const [cat, setCat] = useState(null);
   const [unit, setUnit] = useState(null);
+  const [updatedTarget, setUpdatedTarget] = useState({});
 
   const submitHandler = () => {
     if (name && unit && cat) {
@@ -50,6 +66,11 @@ export const Manage = () => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    dispatch(getItems());
+    //eslint-disable-next-line
+  }, [updatedData]);
+
   const cancelHandler = () => {
     setShowModal(false);
     form.resetFields();
@@ -66,6 +87,23 @@ export const Manage = () => {
     if (brand) setBrand(brand);
     if (model) setModel(model);
     if (unit) setUnit(unit);
+  };
+
+  const handleDelete = (id) => {
+    dispatch(updateItem({ _id: id, valid: false }));
+  };
+
+  const updateHandler = ({ id, name, brand, category, model, stock, unit }) => {
+    setShowEditModal(true);
+    setUpdatedTarget({
+      id,
+      name,
+      brand,
+      category,
+      model,
+      stock,
+      unit,
+    });
   };
 
   const columns = [
@@ -141,8 +179,33 @@ export const Manage = () => {
       key: 'action',
       render: (text, record) => (
         <Space size="small">
-          <a href="/">编辑</a>
-          <a href="/">删除</a>
+          <Button
+            type="primary"
+            size="small"
+            onClick={() =>
+              updateHandler({
+                id: record._id,
+                name: record.name,
+                brand: record.brand,
+                category: record.category,
+                model: record.model,
+                stock: record.stock,
+                unit: record.unit,
+              })
+            }
+          >
+            编辑
+          </Button>
+          <Popconfirm
+            okText="确定"
+            cancelText="取消"
+            title="确定要删除？"
+            onConfirm={() => handleDelete(record._id)}
+          >
+            <Button type="danger" size="small">
+              删除
+            </Button>
+          </Popconfirm>
         </Space>
       ),
     },
@@ -162,8 +225,18 @@ export const Manage = () => {
       </Button>
       {showAlert ? (
         <Alert
-          message={data ? data.msg : newAddError ? newAddError.msg : null}
-          type={data ? 'success' : 'error'}
+          message={
+            data
+              ? data.msg
+              : newAddError
+              ? newAddError.msg
+              : updatedData
+              ? updatedData.msg
+              : updatedError
+              ? updatedError.msg
+              : null
+          }
+          type={!updatedData && !data ? 'error' : 'success'}
           style={{
             marginTop: '1rem',
           }}
@@ -233,6 +306,18 @@ export const Manage = () => {
           </Form.Item>
         </Form>
       </Modal>
+      <EditModal
+        showEditModal={showEditModal}
+        setShowEditModal={setShowEditModal}
+        setShowAlert={setShowAlert}
+        id={updatedTarget && updatedTarget.id}
+        name={updatedTarget && updatedTarget.name}
+        brand={updatedTarget && updatedTarget.brand}
+        category={updatedTarget && updatedTarget.category}
+        model={updatedTarget && updatedTarget.model}
+        stock={updatedTarget && updatedTarget.stock}
+        unit={updatedTarget && updatedTarget.unit}
+      />
       {itemsLoading ? (
         <Spin size="large" className="center" />
       ) : items ? (

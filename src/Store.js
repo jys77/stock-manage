@@ -2,7 +2,13 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import Cookie from 'js-cookie';
 
-import { loginReducer, addItemReducer, getItemsReducer, getFilterReducer } from './reducers';
+import {
+  loginReducer,
+  addItemReducer,
+  getItemsReducer,
+  getFilterReducer,
+  updateItemReducer,
+} from './reducers';
 
 const user = Cookie.getJSON('user') || null;
 
@@ -15,6 +21,7 @@ const reducer = combineReducers({
   newAdd: addItemReducer,
   items: getItemsReducer,
   filter: getFilterReducer,
+  updatedItem: updateItemReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

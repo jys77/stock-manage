@@ -15,5 +15,9 @@ export const GET_ITEMS_CATS = 'GET_ITEMS_CATS';
 export const GET_ITEMS_BRANDS = 'GET_ITEMS_BRANDS';
 export const GET_ITEMS_NAMES = 'GET_ITEMS_NAMES';
 
+export const UPDATE_ITEM_REQUEST = 'UPDATE_ITEM_REQUEST';
+export const UPDATE_ITEM_SUCCESS = 'UPDATE_ITEM_SUCCESS';
+export const UPDATE_ITEM_FAIL = 'UPDATE_ITEM_FAIL';
+
 export const units = ['个', '只', '根', '台', '卷', '箱', '米', '平方米'];
 export const categories = ['A', 'B', 'C', 'D', 'E'];

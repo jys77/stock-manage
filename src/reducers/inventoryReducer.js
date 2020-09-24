@@ -8,6 +8,9 @@ import {
   GET_ITEMS_CATS,
   GET_ITEMS_BRANDS,
   GET_ITEMS_NAMES,
+  UPDATE_ITEM_REQUEST,
+  UPDATE_ITEM_SUCCESS,
+  UPDATE_ITEM_FAIL,
 } from '../constants';
 
 export const addItemReducer = (state = {}, action) => {
@@ -75,6 +78,27 @@ export const getFilterReducer = (
       return {
         ...state,
         names: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const updateItemReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_ITEM_REQUEST:
+      return {
+        loading: true,
+      };
+    case UPDATE_ITEM_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case UPDATE_ITEM_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
       };
     default:
       return state;

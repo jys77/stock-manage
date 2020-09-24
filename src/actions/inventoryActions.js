@@ -9,6 +9,9 @@ import {
   GET_ITEMS_CATS,
   GET_ITEMS_BRANDS,
   GET_ITEMS_NAMES,
+  UPDATE_ITEM_SUCCESS,
+  UPDATE_ITEM_REQUEST,
+  UPDATE_ITEM_FAIL,
 } from '../constants';
 
 export const addItem = (newItem) => {
@@ -95,5 +98,59 @@ export const getFilters = (filterName) => {
         });
       } else return;
     });
+  };
+};
+
+export const updateItem = ({ _id, name, brand, model, stock, unit, category, valid }) => {
+  return (dispatch, getState) => {
+    const {
+      login: { user },
+    } = getState();
+    dispatch({
+      type: UPDATE_ITEM_REQUEST,
+      payload: {
+        _id,
+        name,
+        brand,
+        model,
+        stock,
+        unit,
+        category,
+        valid,
+      },
+    });
+    axios
+      .put(
+        '/api/inventories/' + _id,
+        {
+          name,
+          brand,
+          model,
+          stock,
+          unit,
+          category,
+          valid,
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch({
+          type: UPDATE_ITEM_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { data } = err.response;
+          dispatch({
+            type: UPDATE_ITEM_FAIL,
+            payload: data,
+          });
+        }
+      });
   };
 };

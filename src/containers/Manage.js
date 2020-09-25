@@ -212,7 +212,7 @@ export const Manage = () => {
   ];
 
   return (
-    <div className="content-manage">
+    <div className="container">
       <Button
         className="add-btn"
         type="primary"

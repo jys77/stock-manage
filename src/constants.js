@@ -19,5 +19,9 @@ export const UPDATE_ITEM_REQUEST = 'UPDATE_ITEM_REQUEST';
 export const UPDATE_ITEM_SUCCESS = 'UPDATE_ITEM_SUCCESS';
 export const UPDATE_ITEM_FAIL = 'UPDATE_ITEM_FAIL';
 
+export const SEARCH_REQUEST = 'SEARCH_REQUEST';
+export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
+export const SEARCH_FAIL = 'SEARCH_FAIL';
+
 export const units = ['个', '只', '根', '台', '卷', '箱', '米', '平方米'];
 export const categories = ['A', 'B', 'C', 'D', 'E'];

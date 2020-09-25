@@ -12,6 +12,9 @@ import {
   UPDATE_ITEM_SUCCESS,
   UPDATE_ITEM_REQUEST,
   UPDATE_ITEM_FAIL,
+  SEARCH_REQUEST,
+  SEARCH_SUCCESS,
+  SEARCH_FAIL,
 } from '../constants';
 
 export const addItem = (newItem) => {
@@ -148,6 +151,38 @@ export const updateItem = ({ _id, name, brand, model, stock, unit, category, val
           const { data } = err.response;
           dispatch({
             type: UPDATE_ITEM_FAIL,
+            payload: data,
+          });
+        }
+      });
+  };
+};
+
+export const searchItems = (keyword) => {
+  return (dispatch, getState) => {
+    const {
+      login: { user },
+    } = getState();
+    dispatch({
+      type: SEARCH_REQUEST,
+    });
+    axios
+      .get('/api/search?keyword=' + keyword, {
+        headers: {
+          Authorization: 'Bearer ' + user.token,
+        },
+      })
+      .then((res) => {
+        dispatch({
+          type: SEARCH_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { data } = err.response;
+          dispatch({
+            type: SEARCH_FAIL,
             payload: data,
           });
         }

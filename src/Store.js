@@ -8,6 +8,7 @@ import {
   getItemsReducer,
   getFilterReducer,
   updateItemReducer,
+  searchItemsReducer,
 } from './reducers';
 
 const user = Cookie.getJSON('user') || null;
@@ -22,6 +23,7 @@ const reducer = combineReducers({
   items: getItemsReducer,
   filter: getFilterReducer,
   updatedItem: updateItemReducer,
+  searchedItems: searchItemsReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

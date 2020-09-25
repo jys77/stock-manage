@@ -4,4 +4,5 @@ export {
   getItemsReducer,
   getFilterReducer,
   updateItemReducer,
+  searchItemsReducer,
 } from './inventoryReducer';

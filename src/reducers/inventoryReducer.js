@@ -11,6 +11,9 @@ import {
   UPDATE_ITEM_REQUEST,
   UPDATE_ITEM_SUCCESS,
   UPDATE_ITEM_FAIL,
+  SEARCH_REQUEST,
+  SEARCH_SUCCESS,
+  SEARCH_FAIL,
 } from '../constants';
 
 export const addItemReducer = (state = {}, action) => {
@@ -97,6 +100,30 @@ export const updateItemReducer = (state = {}, action) => {
       };
     case UPDATE_ITEM_FAIL:
       return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const searchItemsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SEARCH_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case SEARCH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+      };
+    case SEARCH_FAIL:
+      return {
+        ...state,
         loading: false,
         error: action.payload,
       };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Select, DatePicker, TimePicker, InputNumber, Button, Spin, Tag, Space } from 'antd';
+import { Form, Select, DatePicker, InputNumber, Button, Spin, Tag, Space } from 'antd';
 import { searchItems } from '../actions';
 import { debounce } from '../utils';
 export const StockIn = () => {
@@ -30,11 +30,8 @@ export const StockIn = () => {
         }}
         layout="horizontal"
       >
-        <Form.Item label="入库日期">
-          <DatePicker />
-        </Form.Item>
         <Form.Item label="入库时间">
-          <TimePicker />
+          <DatePicker showTime />
         </Form.Item>
         <Form.Item label="选择物品">
           <Select

@@ -321,18 +321,7 @@ export const Manage = () => {
       {itemsLoading ? (
         <Spin size="large" className="center" />
       ) : items ? (
-        <Table
-          rowKey="row"
-          locale={{
-            cancelSort: '点击取消排序',
-            triggerAsc: '点击升序',
-            triggerDesc: '点击降序',
-            filterReset: '重置',
-            filterConfirm: '确认',
-          }}
-          columns={columns}
-          dataSource={items}
-        />
+        <Table columns={columns} dataSource={items} />
       ) : itemsError ? (
         <div></div>
       ) : (

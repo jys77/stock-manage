@@ -2,12 +2,13 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Select, DatePicker, InputNumber, Button, Spin, Tag, Space } from 'antd';
 import { MinusCircleTwoTone, PlusOutlined } from '@ant-design/icons';
-import { searchItems } from '../actions';
+import { searchItems, stockIn } from '../actions';
 import { debounce } from '../utils';
-export const StockIn = () => {
+
+export const StockIn = (props) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const { loading, data } = useSelector((state) => state.searchedItems);
+  const { loading: searchLoading, data } = useSelector((state) => state.searchedItems);
 
   const handleChange = (value) => {
     console.log(value);
@@ -20,12 +21,16 @@ export const StockIn = () => {
   handleSearch = debounce(handleSearch);
 
   const onFinish = (values) => {
-    console.log(values);
+    const { time, items } = values;
+    if (items !== undefined && items !== []) {
+      dispatch(stockIn(time, items));
+      props.history.push('/dashboard/manage');
+    }
   };
 
   return (
     <div className="container">
-      <Form form={form} layout="horizontal" onFinish={onFinish}>
+      <Form form={form} layout="horizontal" onFinish={onFinish} className="form">
         <Form.Item
           label="入库时间"
           name="time"
@@ -52,7 +57,7 @@ export const StockIn = () => {
                         showArrow={false}
                         filterOption={false}
                         placeholder="输入关键词（如品牌名，商品名）"
-                        notFoundContent={loading ? <Spin size="small" /> : null}
+                        notFoundContent={searchLoading ? <Spin size="small" /> : null}
                         onChange={handleChange}
                         onSearch={handleSearch}
                       >

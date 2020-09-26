@@ -2,9 +2,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Select, DatePicker, InputNumber, Button, Spin, Tag, Space } from 'antd';
 import { MinusCircleTwoTone, PlusOutlined } from '@ant-design/icons';
-import { searchItems } from '../actions';
+import { searchItems, sell } from '../actions';
 import { debounce } from '../utils';
-export const Sell = () => {
+
+export const Sell = (props) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const { loading, data } = useSelector((state) => state.searchedItems);
@@ -20,12 +21,16 @@ export const Sell = () => {
   handleSearch = debounce(handleSearch);
 
   const onFinish = (values) => {
-    console.log(values);
+    const { time, items } = values;
+    if (items !== undefined && items !== []) {
+      dispatch(sell(time, items));
+      props.history.push('/dashboard/manage');
+    }
   };
 
   return (
     <div className="container">
-      <Form form={form} layout="horizontal" onFinish={onFinish}>
+      <Form form={form} layout="horizontal" onFinish={onFinish} className="form">
         <Form.Item
           label="售出时间"
           name="time"

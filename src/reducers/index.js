@@ -6,3 +6,5 @@ export {
   updateItemReducer,
   searchItemsReducer,
 } from './inventoryReducer';
+
+export { stockInReducer, sellReducer } from './historyReducer';

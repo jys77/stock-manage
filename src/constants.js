@@ -23,5 +23,13 @@ export const SEARCH_REQUEST = 'SEARCH_REQUEST';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 export const SEARCH_FAIL = 'SEARCH_FAIL';
 
+export const STOCK_IN_REQUEST = 'STOCK_IN_REQUEST';
+export const STOCK_IN_SUCCESS = 'STOCK_IN_SUCCESS';
+export const STOCK_IN_FAIL = 'STOCK_IN_FAIL';
+
+export const SELL_REQUEST = 'SELL_REQUEST';
+export const SELL_SUCCESS = 'SELL_SUCCESS';
+export const SELL_FAIL = 'SELL_FAIL';
+
 export const units = ['个', '只', '根', '台', '卷', '箱', '米', '平方米'];
 export const categories = ['A', 'B', 'C', 'D', 'E'];

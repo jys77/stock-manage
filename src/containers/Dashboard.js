@@ -25,7 +25,12 @@ export const Dashboard = () => {
         collapsedWidth="0"
       >
         <div className="dashboard-title">库存进出管理系统</div>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+        <Menu
+          theme="dark"
+          defaultSelectedKeys={['1']}
+          mode="inline"
+          defaultOpenKeys={['sub1', 'sub2']}
+        >
           <Menu.Item key="1">
             <NavLink to="/dashboard">首页</NavLink>
           </Menu.Item>

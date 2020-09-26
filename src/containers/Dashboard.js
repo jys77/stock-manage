@@ -2,14 +2,17 @@ import React from 'react';
 import Cookie from 'js-cookie';
 import { Route, NavLink, Redirect } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { AppstoreAddOutlined, PayCircleOutlined, DatabaseOutlined } from '@ant-design/icons';
-import { StockIn } from './StockIn';
-import { Sell } from './Sell';
-import { Manage } from './Manage';
+import {
+  AppstoreAddOutlined,
+  PayCircleOutlined,
+  DatabaseOutlined,
+  BarsOutlined,
+} from '@ant-design/icons';
+import { StockIn, Sell, Manage, HistoryIn, HistoryOut } from '.';
 const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
-export const Dashboard = () => {
+export const Dashboard = (props) => {
   return !Cookie.getJSON('user') ? (
     <Redirect to="/" />
   ) : (
@@ -27,27 +30,35 @@ export const Dashboard = () => {
         <div className="dashboard-title">库存进出管理系统</div>
         <Menu
           theme="dark"
-          defaultSelectedKeys={['1']}
           mode="inline"
+          defaultSelectedKeys={['/dashboard']}
           defaultOpenKeys={['sub1', 'sub2']}
+          selectedKeys={[props.history.location.pathname]}
+          sele
         >
-          <Menu.Item key="1">
-            <NavLink to="/dashboard">首页</NavLink>
+          <Menu.Item key="/dashboard">
+            <NavLink exact to="/dashboard">
+              首页
+            </NavLink>
           </Menu.Item>
           <SubMenu key="sub1" title="日常业务">
-            <Menu.Item key="2" icon={<AppstoreAddOutlined />}>
+            <Menu.Item key="/dashboard/in" icon={<AppstoreAddOutlined />}>
               <NavLink to="/dashboard/in">入库</NavLink>
             </Menu.Item>
-            <Menu.Item key="3" icon={<PayCircleOutlined />}>
+            <Menu.Item key="/dashboard/out" icon={<PayCircleOutlined />}>
               <NavLink to="/dashboard/out">售出</NavLink>
             </Menu.Item>
-            <Menu.Item key="4" icon={<DatabaseOutlined />}>
+            <Menu.Item key="/dashboard/manage" icon={<DatabaseOutlined />}>
               <NavLink to="/dashboard/manage">物品管理</NavLink>
             </Menu.Item>
           </SubMenu>
-          <SubMenu key="sub2" title="报表">
-            <Menu.Item key="5">入库记录</Menu.Item>
-            <Menu.Item key="6">售出记录</Menu.Item>
+          <SubMenu key="sub2" title="历史记录">
+            <Menu.Item key="/dashboard/history-in" icon={<BarsOutlined />}>
+              <NavLink to="/dashboard/history-in">入库记录</NavLink>
+            </Menu.Item>
+            <Menu.Item key="/dashboard/history-out" icon={<BarsOutlined />}>
+              <NavLink to="/dashboard/history-out">售出记录</NavLink>
+            </Menu.Item>
           </SubMenu>
           <Menu.Item key="7">数据导入</Menu.Item>
         </Menu>
@@ -56,6 +67,8 @@ export const Dashboard = () => {
         <Route path="/dashboard/in" component={StockIn} />
         <Route path="/dashboard/out" component={Sell} />
         <Route path="/dashboard/manage" component={Manage} />
+        <Route path="/dashboard/history-in" component={HistoryIn} />
+        <Route path="/dashboard/history-out" component={HistoryOut} />
       </Content>
     </Layout>
   );

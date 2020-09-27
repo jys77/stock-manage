@@ -1,14 +1,29 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Column } from '@ant-design/charts';
-import { Empty, Typography, Divider, Spin } from 'antd';
-import { getSellStats } from '../actions';
-export const Home = () => {
+import { Empty, Typography, Divider, Spin, Avatar, Menu, Dropdown, Space, Button } from 'antd';
+import { UserOutlined, DownOutlined } from '@ant-design/icons';
+import { getSellStats, logout } from '../actions';
+export const Home = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getSellStats());
+    // eslint-disable-next-line
   }, []);
+  const { user } = useSelector((state) => state.login);
   const { loading, data } = useSelector((state) => state.sellStats);
+  const bye = () => {
+    dispatch(logout());
+    props.history.push('/');
+  };
+  const menu = (
+    <Menu>
+      <Menu.Item key="0">
+        <div onClick={bye}>登出</div>
+      </Menu.Item>
+    </Menu>
+  );
+
   const config = {
     title: {
       visible: false,
@@ -35,7 +50,17 @@ export const Home = () => {
   };
   return (
     <div className="container">
-      <Divider></Divider>
+      <Space style={{ float: 'right', margin: '1rem' }}>
+        <Avatar icon={<UserOutlined />} />
+        {user && (
+          <Dropdown overlay={menu} trigger={['click']}>
+            <Button>
+              {user.username} <DownOutlined />
+            </Button>
+          </Dropdown>
+        )}
+      </Space>
+      <Divider />
       <Typography.Title level={5}>最近七天销售额柱状图</Typography.Title>
       {loading ? (
         <Spin size="large" className="center" />

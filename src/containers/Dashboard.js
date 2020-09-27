@@ -59,7 +59,6 @@ export const Dashboard = (props) => {
               <NavLink to="/dashboard/history-out">售出记录</NavLink>
             </Menu.Item>
           </SubMenu>
-          <Menu.Item key="7">数据导入</Menu.Item>
         </Menu>
       </Sider>
       <Content className="content">

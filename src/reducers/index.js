@@ -7,4 +7,4 @@ export {
   searchItemsReducer,
 } from './inventoryReducer';
 
-export { stockInReducer, sellReducer } from './historyReducer';
+export { stockInReducer, sellReducer, historyInReducer, historyOutReducer } from './historyReducer';

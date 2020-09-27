@@ -34,7 +34,6 @@ export const Dashboard = (props) => {
           defaultSelectedKeys={['/dashboard']}
           defaultOpenKeys={['sub1', 'sub2']}
           selectedKeys={[props.history.location.pathname]}
-          sele
         >
           <Menu.Item key="/dashboard">
             <NavLink exact to="/dashboard">

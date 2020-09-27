@@ -6,6 +6,12 @@ import {
   SELL_REQUEST,
   SELL_SUCCESS,
   SELL_FAIL,
+  HISTORY_IN_REQUEST,
+  HISTORY_IN_SUCCESS,
+  HISTORY_IN_FAIL,
+  HISTORY_OUT_REQUEST,
+  HISTORY_OUT_SUCCESS,
+  HISTORY_OUT_FAIL,
 } from '../constants';
 
 export const stockIn = (time, items) => {
@@ -90,6 +96,72 @@ export const sell = (time, items) => {
           type: SELL_FAIL,
           payload: err,
         });
+      });
+  };
+};
+
+export const historyIn = (start, end) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: HISTORY_IN_REQUEST,
+      payload: { start, end },
+    });
+    const {
+      login: { user },
+    } = getState();
+    axios
+      .get('/api/in?start=' + start + '&end=' + end, {
+        headers: {
+          Authorization: 'Bearer ' + user.token,
+        },
+      })
+      .then((res) => {
+        dispatch({
+          type: HISTORY_IN_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { data } = err.response;
+          dispatch({
+            type: HISTORY_IN_FAIL,
+            payload: data,
+          });
+        }
+      });
+  };
+};
+
+export const historyOut = (start, end) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: HISTORY_OUT_REQUEST,
+      payload: { start, end },
+    });
+    const {
+      login: { user },
+    } = getState();
+    axios
+      .get('/api/out?start=' + start + '&end=' + end, {
+        headers: {
+          Authorization: 'Bearer ' + user.token,
+        },
+      })
+      .then((res) => {
+        dispatch({
+          type: HISTORY_OUT_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { data } = err.response;
+          dispatch({
+            type: HISTORY_OUT_FAIL,
+            payload: data,
+          });
+        }
       });
   };
 };

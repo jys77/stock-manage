@@ -11,6 +11,8 @@ import {
   searchItemsReducer,
   stockInReducer,
   sellReducer,
+  historyInReducer,
+  historyOutReducer,
 } from './reducers';
 
 const user = Cookie.getJSON('user') || null;
@@ -28,6 +30,8 @@ const reducer = combineReducers({
   searchedItems: searchItemsReducer,
   stockIn: stockInReducer,
   sell: sellReducer,
+  historyIn: historyInReducer,
+  historyOut: historyOutReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

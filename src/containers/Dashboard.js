@@ -8,7 +8,7 @@ import {
   DatabaseOutlined,
   BarsOutlined,
 } from '@ant-design/icons';
-import { StockIn, Sell, Manage, HistoryIn, HistoryOut } from '.';
+import { StockIn, Sell, Manage, HistoryIn, HistoryOut, Home } from '.';
 const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
@@ -63,6 +63,7 @@ export const Dashboard = (props) => {
         </Menu>
       </Sider>
       <Content className="content">
+        <Route path="/dashboard" exact component={Home} />
         <Route path="/dashboard/in" component={StockIn} />
         <Route path="/dashboard/out" component={Sell} />
         <Route path="/dashboard/manage" component={Manage} />

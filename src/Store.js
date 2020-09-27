@@ -13,6 +13,7 @@ import {
   sellReducer,
   historyInReducer,
   historyOutReducer,
+  getSellStatsReducer,
 } from './reducers';
 
 const user = Cookie.getJSON('user') || null;
@@ -32,6 +33,7 @@ const reducer = combineReducers({
   sell: sellReducer,
   historyIn: historyInReducer,
   historyOut: historyOutReducer,
+  sellStats: getSellStatsReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -39,5 +39,9 @@ export const HISTORY_OUT_REQUEST = 'HISTORY_OUT_REQUEST';
 export const HISTORY_OUT_SUCCESS = 'HISTORY_OUT_SUCCESS';
 export const HISTORY_OUT_FAIL = 'HISTORY_OUT_FAIL';
 
+export const GET_SELL_STATS_REQUEST = 'GET_SELL_STATS_REQUEST';
+export const GET_SELL_STATS_SUCCESS = 'GET_SELL_STATS_SUCCESS';
+export const GET_SELL_STATS_FAIL = 'GET_SELL_STATS_FAIL';
+
 export const units = ['个', '只', '根', '台', '卷', '箱', '米', '平方米'];
 export const categories = ['A', 'B', 'C', 'D', 'E'];

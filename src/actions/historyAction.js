@@ -12,6 +12,9 @@ import {
   HISTORY_OUT_REQUEST,
   HISTORY_OUT_SUCCESS,
   HISTORY_OUT_FAIL,
+  GET_SELL_STATS_REQUEST,
+  GET_SELL_STATS_SUCCESS,
+  GET_SELL_STATS_FAIL,
 } from '../constants';
 
 export const stockIn = (time, items) => {
@@ -159,6 +162,38 @@ export const historyOut = (start, end) => {
           const { data } = err.response;
           dispatch({
             type: HISTORY_OUT_FAIL,
+            payload: data,
+          });
+        }
+      });
+  };
+};
+
+export const getSellStats = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: GET_SELL_STATS_REQUEST,
+    });
+    const {
+      login: { user },
+    } = getState();
+    axios
+      .get('/api/out/stats', {
+        headers: {
+          Authorization: 'Bearer ' + user.token,
+        },
+      })
+      .then((res) => {
+        dispatch({
+          type: GET_SELL_STATS_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { data } = err.response;
+          dispatch({
+            type: GET_SELL_STATS_FAIL,
             payload: data,
           });
         }

@@ -11,6 +11,9 @@ import {
   HISTORY_OUT_REQUEST,
   HISTORY_OUT_SUCCESS,
   HISTORY_OUT_FAIL,
+  GET_SELL_STATS_REQUEST,
+  GET_SELL_STATS_SUCCESS,
+  GET_SELL_STATS_FAIL,
 } from '../constants';
 
 export const stockInReducer = (state = {}, action) => {
@@ -96,6 +99,27 @@ export const historyOutReducer = (state = {}, action) => {
     case HISTORY_OUT_FAIL:
       return {
         loading: true,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const getSellStatsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_SELL_STATS_REQUEST:
+      return {
+        loading: true,
+      };
+    case GET_SELL_STATS_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case GET_SELL_STATS_FAIL:
+      return {
+        loading: false,
         error: action.payload,
       };
     default:

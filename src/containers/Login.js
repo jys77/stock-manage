@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../actions';
-import { Layout, Form, Input, Button, Checkbox, Alert } from 'antd';
+import { Layout, Form, Input, Button, Alert } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 const { Header, Content } = Layout;
 const layout = {
@@ -24,13 +24,11 @@ export const Login = (props) => {
   const { loading, user, error } = useSelector((state) => state.login);
   const [showAlert, setShowAlert] = useState(false);
   const onFinish = (values) => {
-    console.log('Success:', values);
-    const { username, password, remember } = values;
+    const { username, password } = values;
     dispatch(login(username, password));
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
     setShowAlert(true);
     setTimeout(() => {
       setShowAlert(false);
@@ -52,6 +50,7 @@ export const Login = (props) => {
     return () => {
       setShowAlert(false);
     };
+    // eslint-disable-next-line
   }, [user, error]);
 
   return (
@@ -101,11 +100,6 @@ export const Login = (props) => {
           >
             <Input.Password />
           </Form.Item>
-
-          <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-            <Checkbox>记住密码</Checkbox>
-          </Form.Item>
-
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit">
               登录
